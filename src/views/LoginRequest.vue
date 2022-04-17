@@ -15,16 +15,43 @@
                   <span v-if="appProfile.website">{{ appProfile.website | parseUrl }}</span>
                 </div>
               </div>
-              <p>
+              <div>
                 <span v-if="app"
-                  >The app <b>{{ app }}</b></span
+                  >
+                  
+                  <div v-if="suspiciousApps.includes(app)" class="flash flash-error">
+                  Warning! There are reports that {{app}} has been involved in suspicious activities.
+                  </div>
+                  The app <b>{{ app }}</b></span
                 >
                 <span v-else>This site </span>
                 is requesting access to view your current account username.
-              </p>
+
+              </div>
             </div>
-            <div class="mb-4">
-              <router-link
+            <div class="mb-4" v-if="app">
+              <router-link 
+                :to="{ name: 'login', query: { redirect: this.$route.fullPath } }"
+                class="btn btn-large btn-blue mr-2 mb-2"
+                v-if="!username && !suspiciousApps.includes(app)"
+              >
+                Continue
+              </router-link>
+              <button
+                type="submit"
+                class="btn btn-large btn-success mr-2 mb-2"
+                :disabled="loading"
+                @click="handleSubmit"
+                v-else-if="!suspiciousApps.includes(app)"
+              >
+                Log in
+              </button>
+              <button class="btn btn-large mb-2" @click="handleReject">
+                Cancel
+              </button>
+            </div>
+            <div class="mb-4" v-else>
+              <router-link 
                 :to="{ name: 'login', query: { redirect: this.$route.fullPath } }"
                 class="btn btn-large btn-blue mr-2 mb-2"
                 v-if="!username"
@@ -80,6 +107,7 @@ if (typeof window !== 'undefined' && window.require) {
 export default {
   data() {
     return {
+      suspiciousApps : ['woxauto'],
       showLoading: false,
       loading: false,
       failed: false,
