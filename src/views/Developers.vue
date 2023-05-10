@@ -27,8 +27,8 @@
             </router-link>
           </div>
           <p>
-            If you would like to use the OAuth 2 API for posting with SteemLogin server you need
-            to authorize the Steem account "steemlogin" to post on the behalf of your app account.
+            If you would like to use the OAuth 2 API for posting with SteemLogin server you need to
+            authorize the Steem account "steemlogin" to post on the behalf of your app account.
             <router-link to="/authorize/steemlogin">Click here</router-link>
             to do this and sign with your app account.
           </p>

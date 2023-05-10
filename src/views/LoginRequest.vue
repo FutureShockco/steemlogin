@@ -16,21 +16,19 @@
                 </div>
               </div>
               <div>
-                <span v-if="app"
-                  >
-                  
+                <span v-if="app">
                   <div v-if="suspiciousApps.includes(app)" class="flash flash-error">
-                  Warning! There are reports that {{app}} has been involved in suspicious activities.
+                    Warning! There are reports that {{ app }} has been involved in suspicious
+                    activities.
                   </div>
                   The app <b>{{ app }}</b></span
                 >
                 <span v-else>This site </span>
                 is requesting access to view your current account username.
-
               </div>
             </div>
             <div class="mb-4" v-if="app">
-              <router-link 
+              <router-link
                 :to="{ name: 'login', query: { redirect: this.$route.fullPath } }"
                 class="btn btn-large btn-blue mr-2 mb-2"
                 v-if="!username && !suspiciousApps.includes(app)"
@@ -51,7 +49,7 @@
               </button>
             </div>
             <div class="mb-4" v-else>
-              <router-link 
+              <router-link
                 :to="{ name: 'login', query: { redirect: this.$route.fullPath } }"
                 class="btn btn-large btn-blue mr-2 mb-2"
                 v-if="!username"
@@ -107,7 +105,7 @@ if (typeof window !== 'undefined' && window.require) {
 export default {
   data() {
     return {
-      suspiciousApps : ['woxauto'],
+      suspiciousApps: ['woxauto'],
       showLoading: false,
       loading: false,
       failed: false,

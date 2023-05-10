@@ -1,7 +1,7 @@
 <template>
   <div class="hero height-full">
     <Center>
-       <img src="/slogin.png"/>
+      <img src="/slogin.png" />
       <h4 class="m-0">steemlogin</h4>
       <div class="mt-4 mb-7">
         <h1 class="mb-6">Your account, your keys.</h1>
@@ -28,11 +28,16 @@
           </div>
         </div> -->
         <p>
-          With SteemLogin, you're always in control of your private keys: we neither store nor
-          have access to them.
+          With SteemLogin, you're always in control of your private keys: we neither store nor have
+          access to them.
         </p>
-                <p class="vote">
-          Vote for our witness on Steem: <a target="_blank" href="https://steemlogin.com/sign/account-witness-vote?witness=future.witness&approve=1">@futurewitness</a>
+        <p class="vote">
+          Vote for our witness on Steem:
+          <a
+            target="_blank"
+            href="https://steemlogin.com/sign/account-witness-vote?witness=future.witness&approve=1"
+            >@futurewitness</a
+          >
         </p>
       </div>
       <Footer />
@@ -62,9 +67,7 @@ export default {
   font-size: 32px;
 }
 
-.vote{
-  color:#06D6A9
+.vote {
+  color: #06d6a9;
 }
-
-
 </style>

@@ -172,13 +172,20 @@ export default {
       }
 
       // Can use redirect uri
-      if (confirmation && (this.$route.query.redirect_uri || this.parsed.params.callback) && isWeb()) {
-        window.location = steemuri.resolveCallback(this.$route.query.redirect_uri + '?id='+confirmation.id || this.parsed.params.callback, {
-          sig,
-          id: confirmation.id || undefined,
-          block: confirmation.block_num || undefined,
-          txn: confirmation.txn_num || undefined,
-        });
+      if (
+        confirmation &&
+        (this.$route.query.redirect_uri || this.parsed.params.callback) &&
+        isWeb()
+      ) {
+        window.location = steemuri.resolveCallback(
+          `${this.$route.query.redirect_uri}?id=${confirmation.id}` || this.parsed.params.callback,
+          {
+            sig,
+            id: confirmation.id || undefined,
+            block: confirmation.block_num || undefined,
+            txn: confirmation.txn_num || undefined,
+          },
+        );
       } else {
         this.loading = false;
       }

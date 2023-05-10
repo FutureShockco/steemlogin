@@ -1,7 +1,7 @@
 <template>
   <Center>
     <router-link to="/" class="d-inline-block my-2 no-decoration">
-       <img src="/slogin.png"/>
+      <img src="/slogin.png" />
       <h4 class="m-0">Steem Login</h4>
     </router-link>
     <div class="width-full p-4 mb-2">
@@ -197,6 +197,3 @@ export default {
   },
 };
 </script>
-
-
-

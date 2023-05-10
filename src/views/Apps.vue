@@ -3,7 +3,7 @@
     <div class="apps-hero text-center">
       <div class="mx-auto py-5 container-sm">
         <router-link to="/">
-          <img src="/slogin.png"/>
+          <img src="/slogin.png" />
         </router-link>
         <div class="mt-4 mb-7">
           <h1 class="mb-6">App store</h1>

@@ -1,7 +1,7 @@
 <template>
   <Center>
     <router-link to="/" class="d-inline-block my-2 no-decoration">
-       <img class="login-home" src="/slogin.png"/>
+      <img class="login-home" src="/slogin.png" />
       <h4 class="m-0">Steem Login</h4>
     </router-link>
     <div class="width-full px-4 mb-2">
@@ -22,8 +22,10 @@
             autocomplete="username"
             @blur="handleBlur('username')"
           />
-          <label for="password" v-if="authority">Steem private {{ authority || 'private' }} key </label>
-          <label for="password" v-else> Steem private {{currentAuthority}} key </label>
+          <label for="password" v-if="authority"
+            >Steem private {{ authority || 'private' }} key
+          </label>
+          <label for="password" v-else> Steem private {{ currentAuthority }} key </label>
           <div v-if="dirty.password && !!errors.password" class="error mb-2">
             {{ errors.password }}
           </div>
@@ -154,16 +156,13 @@ export default {
     };
   },
   computed: {
-    currentAuthority(){
-       let type = this.$route.query.redirect.split('?')[0].replace('/sign/','')
-       let autority = null
-       for (const key in operations)
-       {
-         if(key === type)
-         return operations[key].authority
-       }
-       if(!autority)
-       return 'posting'
+    currentAuthority() {
+      const type = this.$route.query.redirect.split('?')[0].replace('/sign/', '');
+      const autority = null;
+      for (const key in operations) {
+        if (key === type) return operations[key].authority;
+      }
+      if (!autority) return 'posting';
     },
     step: {
       get() {
@@ -340,9 +339,7 @@ export default {
 </script>
 
 <style scoped lang="less">
-.login-home{
+.login-home {
   max-width: 230px;
 }
-
-
 </style>

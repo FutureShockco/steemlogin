@@ -1,7 +1,7 @@
 <template>
   <div class="header border-bottom">
     <router-link class="px-4 border-right" to="/">
-    <img class="icon" src="/slogin.png"> 
+      <img class="icon" src="/slogin.png" />
       <!-- <span class="iconfont icon-steemconnect primary-color" /> -->
     </router-link>
     <slot>
@@ -58,7 +58,7 @@ export default {
     margin: 0 0 0 16px;
   }
 
-  .icon{
+  .icon {
     max-width: 100%;
     height: -webkit-fill-available;
     max-height: 45px;
