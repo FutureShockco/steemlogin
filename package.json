@@ -6,6 +6,9 @@
   "homepage": "https://steemlogin.com",
   "main": "electron-entry.js",
   "license": "MIT",
+  "engines": {
+    "node": "16.x"
+  },
   "scripts": {
     "start": "node start.js",
     "serve": "vue-cli-service serve",
