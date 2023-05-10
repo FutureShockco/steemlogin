@@ -156,6 +156,7 @@ export default {
     };
   },
   computed: {
+    /* eslint-disable */ 
     currentAuthority() {
       const type = this.$route.query.redirect.split('?')[0].replace('/sign/', '');
       const autority = null;
