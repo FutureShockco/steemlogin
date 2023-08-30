@@ -373,14 +373,17 @@
         "type": "account",
         "defaultValue": "__signer"
       },
-      "memo_key": {
-        "type": "string"
-      },
       "json_metadata": {
-        "type": "json"
+        "type": "json",
+        "defaultValue": ""
       },
       "posting_json_metadata": {
-        "type": "json"
+        "type": "json",
+        "defaultValue": ""
+      },
+      "extensions": {
+        "type": "array",
+        "defaultValue": []
       }
     }
   },

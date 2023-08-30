@@ -2,7 +2,7 @@
 import { has, snakeCase } from 'lodash';
 import urlParse from 'url-parse';
 import qs from 'query-string';
-import { encodeOps, decode } from 'steem-uri';
+import { encodeOps, decode } from '@/helpers/steem-uri';
 import operations from '@/helpers/operations.json';
 
 export const REQUEST_ID_PARAM = 'requestId';
@@ -47,6 +47,7 @@ export function getVestsToSP(properties) {
 
 export function legacyUriToParsedSteemUri(uri) {
   let parsed;
+  console.log(uri)
   try {
     const url = urlParse(uri);
     const opName = snakeCase(url.pathname.slice(1));
@@ -157,6 +158,7 @@ export function getLowestAuthorityRequired(tx) {
         authority = 'posting';
     }
   });
+  console.log(authority)
   return authority;
 }
 

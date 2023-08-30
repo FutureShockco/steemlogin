@@ -58,7 +58,7 @@
 </template>
 
 <script>
-import * as steemuri from 'steem-uri';
+import * as steemuri from '@/helpers/steem-uri';
 import { mapActions } from 'vuex';
 import { resolveTransaction } from '@/helpers/client';
 import { getAuthority } from '@/helpers/auth';
@@ -121,74 +121,63 @@ export default {
       try {
         parsed = steemuri.decode(uri);
       } catch (err) {
+        console.log(err)
         parsed = legacyUriToParsedSteemUri(uri);
         if (!parsed) {
+          console.log('Uri is not valid')
           this.uriIsValid = false;
         }
       }
       this.parsed = processTransaction(parsed, this.config);
     },
     async handleSubmit() {
-      this.loading = true;
-      let sig = null;
-      let tx = null;
-      let signedTx = null;
-      let confirmation = null;
+      this.loading = true
+    let sig = null
+    let tx = null
+    let signedTx = null
+    let confirmation = null
+    try {
+      tx = await resolveTransaction(this.parsed, this.username)
+      signedTx = await this.sign({ tx, authority: this.authority });
+      [sig] = signedTx.signatures
+    } catch (err) {
+      this.error = err.message
+      console.error('Failed to resolve and sign transaction', err)
 
+    }
+    if (!sig) {
+      this.transactionId = ''
+      this.failed = true
+      this.loading = false
+      return
+    }
+    if (!this.parsed.params.no_broadcast) {
       try {
-        tx = await resolveTransaction(this.parsed, this.$store.state.auth.username);
-        signedTx = await this.sign({ tx, authority: this.authority });
-        [sig] = signedTx.signatures;
+        confirmation = await this.broadcast(signedTx)
+        this.transactionId = confirmation.id
+        this.failed = false
       } catch (err) {
-        console.error('Failed to resolve and sign transaction', err);
+        this.error = err
+        console.error('Failed to broadcast transaction', err)
+        this.transactionId = ''
+        this.failed = true
+
       }
-
-      if (!sig) {
-        this.transactionId = '';
-        this.failed = true;
-        this.loading = false;
-        return;
-      }
-
-      if (!this.parsed.params.no_broadcast) {
-        try {
-          confirmation = await this.broadcast(signedTx);
-          this.transactionId = confirmation.id;
-          this.failed = false;
-
-          if (this.requestId) {
-            signComplete(this.requestId, null, { result: confirmation });
-          }
-        } catch (err) {
-          this.error = err;
-          console.error('Failed to broadcast transaction', err);
-          this.transactionId = '';
-          this.failed = true;
-
-          if (this.requestId) {
-            signComplete(this.requestId, err, null);
-          }
-        }
-      }
-
-      // Can use redirect uri
-      if (
-        confirmation &&
-        (this.$route.query.redirect_uri || this.parsed.params.callback) &&
-        isWeb()
-      ) {
-        window.location = steemuri.resolveCallback(
-          `${this.$route.query.redirect_uri}?id=${confirmation.id}` || this.parsed.params.callback,
-          {
-            sig,
-            id: confirmation.id || undefined,
-            block: confirmation.block_num || undefined,
-            txn: confirmation.txn_num || undefined,
-          },
-        );
-      } else {
-        this.loading = false;
-      }
+    }
+    // Use redirect uri
+    if (confirmation && (this.$route.query.redirect_uri || this.parsed.params.callback)) {
+      const cburl =
+        this.parsed.params.callback || `${this.$route.query.redirect_uri}?id=${confirmation.id}`
+      // @ts-ignore
+      window.location = hiveuri.resolveCallback(cburl, {
+        sig,
+        id: confirmation.id || undefined,
+        block: confirmation.block_num || undefined,
+        txn: confirmation.trx_num || undefined
+      })
+    } else {
+      this.loading = false
+    }
     },
     handleReject() {
       if (this.requestId) {

@@ -1,5 +1,5 @@
 import { Client } from 'dsteem';
-import * as steemuri from 'steem-uri';
+import * as steemuri from '@/helpers/steem-uri';
 
 const CLIENT_OPTIONS = { timeout: 15000 };
 const EXPIRE_TIME = 1000 * 60;

@@ -9,12 +9,7 @@
             <h4 v-if="profile.name" class="m-0">{{ profile.name }}</h4>
             <div v-if="profile.website">{{ profile.website | parseUrl }}</div>
           </div>
-          <a
-            v-if="profile.website"
-            class="btn btn-large mb-4"
-            :href="profile.website"
-            target="_blank"
-          >
+          <a v-if="profile.website" class="btn btn-large mb-4" :href="profile.website" target="_blank">
             Visit <span class="iconfont icon-link-external"></span>
           </a>
           <div class="text-left">
@@ -69,10 +64,16 @@ export default {
       client.database.getAccounts([this.username]).then(accounts => {
         if (accounts[0]) {
           try {
-            this.profile = JSON.parse(accounts[0].json_metadata).profile;
+            this.profile = JSON.parse(accounts[0].posting_json_metadata).profile;
             if (!isValidUrl(this.profile.website)) delete this.profile.website;
           } catch (e) {
-            console.log('Failed to parse app account', e);
+            console.log('Failed to parse app account posting json metadata', e);
+            try {
+              this.profile = JSON.parse(accounts[0].json_metadata).profile;
+              if (!isValidUrl(this.profile.website)) delete this.profile.website;
+            } catch (e) {
+              console.log('Failed to parse app account json metadata', e);
+            }
           }
         }
         this.failed = !accounts[0];
