@@ -457,5 +457,278 @@
         "defaultValue": []
       }
     }
+  },
+  "transfer_from_savings": {
+    "name": "Transfer from savings",
+    "authority": "active",
+    "schema": {
+      "from": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "to": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "amount": {
+        "type": "amount"
+      },
+      "memo": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "request_id": {
+        "type": "int",
+        "defaultValue": 0
+      }
+    }
+  },
+  "escrow_transfer": {
+    "name": "Escrow transfer",
+    "authority": "active",
+    "schema": {
+      "from": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "to": {
+        "type": "account"
+      },
+      "agent": {
+        "type": "account"
+      },
+      "escrow_id": {
+        "type": "int"
+      },
+      "sbd_amount": {
+        "type": "amount",
+        "defaultValue": "0.000 SBD"
+      },
+      "steem_amount": {
+        "type": "amount",
+        "defaultValue": "0.000 STEEM"
+      },
+      "fee": {
+        "type": "amount",
+        "defaultValue": "0.000 STEEM"
+      },
+      "ratification_deadline": {
+        "type": "time"
+      },
+      "escrow_expiration": {
+        "type": "time"
+      },
+      "json_meta": {
+        "type": "string",
+        "defaultValue": ""
+      }
+    }
+  },
+  "escrow_release": {
+    "name": "Escrow release",
+    "authority": "active",
+    "schema": {
+      "from": {
+        "type": "account"
+      },
+      "to": {
+        "type": "account"
+      },
+      "agent": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "who": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "receiver": {
+        "type": "account"
+      },
+      "escrow_id": {
+        "type": "int"
+      },
+      "sbd_amount": {
+        "type": "amount",
+        "defaultValue": "0.000 SBD"
+      },
+      "steem_amount": {
+        "type": "amount",
+        "defaultValue": "0.000 STEEM"
+      }
+    }
+  },
+  "escrow_approve": {
+    "name": "Escrow approve",
+    "authority": "active",
+    "schema": {
+      "from": {
+        "type": "account"
+      },
+      "to": {
+        "type": "account"
+      },
+      "agent": {
+        "type": "account"
+      },
+      "who": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "escrow_id": {
+        "type": "int"
+      },
+      "approve": {
+        "type": "bool",
+        "defaultValue": true
+      }
+    }
+  },
+  "escrow_dispute": {
+    "name": "Escrow dispute",
+    "authority": "active",
+    "schema": {
+      "from": {
+        "type": "account"
+      },
+      "to": {
+        "type": "account"
+      },
+      "agent": {
+        "type": "account"
+      },
+      "who": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "escrow_id": {
+        "type": "int"
+      }
+    }
+  },
+  "escrow_cancel": {
+    "name": "Escrow cancel",
+    "authority": "active",
+    "schema": {
+      "from": {
+        "type": "account"
+      },
+      "to": {
+        "type": "account"
+      },
+      "agent": {
+        "type": "account"
+      },
+      "who": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "escrow_id": {
+        "type": "int"
+      }
+    }
+  },
+  "set_withdraw_vesting_route": {
+    "name": "Set withdraw vesting route",
+    "authority": "active",
+    "schema": {
+      "from_account": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "to_account": {
+        "type": "account"
+      },
+      "percent": {
+        "type": "int",
+        "defaultValue": 0
+      },
+      "auto_vest": {
+        "type": "bool",
+        "defaultValue": false
+      }
+    }
+  },
+  "witness_update": {
+    "name": "Update witness",
+    "authority": "active",
+    "schema": {
+      "owner": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "url": {
+        "type": "string"
+      },
+      "block_signing_key": {
+        "type": "string"
+      },
+      "props": {
+        "type": "object"
+      },
+      "fee": {
+        "type": "amount",
+        "defaultValue": "0.000 STEEM"
+      }
+    }
+  },
+  "create_claimed_account": {
+    "name": "Create claimed account",
+    "authority": "active",
+    "schema": {
+      "creator": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "new_account_name": {
+        "type": "account"
+      },
+      "owner": {
+        "type": "authority"
+      },
+      "active": {
+        "type": "authority"
+      },
+      "posting": {
+        "type": "authority"
+      },
+      "memo_key": {
+        "type": "string"
+      },
+      "json_metadata": {
+        "type": "string",
+        "defaultValue": ""
+      },
+      "extensions": {
+        "type": "array",
+        "defaultValue": []
+      }
+    }
+  },
+  "update_proposal": {
+    "name": "Update proposal",
+    "authority": "active",
+    "schema": {
+      "proposal_id": {
+        "type": "int"
+      },
+      "creator": {
+        "type": "account",
+        "defaultValue": "__signer"
+      },
+      "daily_pay": {
+        "type": "amount"
+      },
+      "subject": {
+        "type": "string"
+      },
+      "permlink": {
+        "type": "string"
+      },
+      "extensions": {
+        "type": "array",
+        "defaultValue": []
+      }
+    }
   }
 }
